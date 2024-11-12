@@ -27,7 +27,7 @@ A simple salary calculator that computes an employee's total salary based on the
 - Select2
 
 ## Installation 
-**Link:**
+**Link:** *https://compusalary.netlify.app*
 
 ## Usage 
 1. Select currency from the dropdown.
