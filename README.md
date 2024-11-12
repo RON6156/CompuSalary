@@ -33,4 +33,4 @@ A simple salary calculator that computes an employee's total salary based on the
 1. Select currency from the dropdown.
 2. Enter your rate per day and overtime rate.
 3. Enter the *number of days worked, overtime hours, special holidays, and legal holidays*.
-4. Click the **Calculate* button.
+4. Click the **Calculate** button.
