@@ -1,4 +1,4 @@
-# Salary Calculator
+# CompuSalary
 A simple salary calculator that computes an employee's total salary based on the *daily rate, overtime rate,* number of *working days, overtime hours,* and *holidays* (special and legal).
 
 ## Features 
