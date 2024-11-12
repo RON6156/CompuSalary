@@ -17,7 +17,7 @@ A simple salary calculator that computes an employee's total salary based on the
        - Special Holiday *(Rate per day × 30%)*
        - Legal Holiday *(Rate per day)*
       
-- **Result Display:** Displays calculated * regular pay, overtime pay, holiday pay,* and *total salary* in the selected currency.
+- **Result Display:** Displays calculated *regular pay, overtime pay, holiday pay,* and *total salary* in the selected currency.
 
 ## Languages/Libraries Used
 - HTML
