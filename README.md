@@ -1,5 +1,5 @@
 # CompuSalary
-A simple salary calculator that computes an employee's total salary based on the *daily rate, overtime rate,* number of *working days, overtime hours,* and *holidays* (special and legal).
+A simple salary calculator that computes an employee's total salary based on the `daily rate`, `overtime rate`, number of `working days`, `overtime hours`, and `holidays` (special and legal).
 
 ## Features 
 - **Currency Selection:** Choose from various currencies to display the calculated salary.
@@ -17,7 +17,7 @@ A simple salary calculator that computes an employee's total salary based on the
   - Special Holiday Pay `(Daily Rate × 30%)`
   - Legal Holiday Pay `(Daily Rate)`
       
-- **Result Display:** Displays calculated *regular pay, overtime pay, holiday pay,* and *total salary* in the selected currency.
+- **Result Display:** Displays calculated `regular pay`, `overtime pay`, `holiday pay`, and `total salary` in the selected currency.
 
 ## Technology Used
 - HTML
@@ -32,6 +32,6 @@ A simple salary calculator that computes an employee's total salary based on the
 
 ## Usage 
 1. **Select Currency**: Choose your preferred currency from the dropdown.
-2. **Enter Rates**: Input the *Rate per Day* and *Overtime Rate*.
-3. **Enter Details**: Specify the *Number of Days Worked*, *Overtime Hours*, *Special Holidays*, and *Legal Holidays*.
+2. **Enter Rates**: Input the `Rate per Day` and `Overtime Rate`.
+3. **Enter Details**: Specify the `Number of Days Worked`, `Overtime Hours`, `Special Holidays`, and `Legal Holidays`.
 4. **Calculate**: Click the **Calculate** button to see the breakdown and total salary.
