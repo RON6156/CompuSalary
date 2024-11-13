@@ -56,7 +56,8 @@ function calculate() {
         <div class="result-item">Overtime Pay: ${currency} ${ot}</div>
         <div class="result-item">Special Holiday Pay: ${currency} ${sp}</div>
         <div class="result-item">Legal Holiday Pay: ${currency} ${lh}</div>
-        <div class="total">Total Salary: ${currency} ${grossPay}</div>
+        <div class="total">Total Salary: <br />
+        ${currency} ${grossPay}</div>
     `;
 
     // Display the result and change the index of the result container to 1
