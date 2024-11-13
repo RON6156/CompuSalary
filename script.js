@@ -8,6 +8,15 @@ $(document).ready(function () {
 function calculate() {
     // Get the selected currency value
     let currency = document.getElementById("mySelect").value;
+    
+    // Ensure currency is valid
+    if (isNaN(currency)) {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Please select currency."
+        });
+    }
 
     // Get the input values
     const ratePerDay = parseFloat(document.getElementById("dailyRate").value);
@@ -78,20 +87,20 @@ function calculate() {
 
     // Display success notification
     const Toast = Swal.mixin({
-  toast: true,
-  position: "top-end",
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.onmouseenter = Swal.stopTimer;
-    toast.onmouseleave = Swal.resumeTimer;
-  }
-});
-Toast.fire({
-  icon: "success",
-  title: "Calculated successfully!"
-});
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: toast => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
+    Toast.fire({
+        icon: "success",
+        title: "Calculated successfully!"
+    });
 
     // Display the result and change the index of the result container to 1
     document.getElementById("result").style.display = "block"; // Show the result
