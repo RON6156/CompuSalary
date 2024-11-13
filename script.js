@@ -15,8 +15,11 @@ function calculate() {
 
     // Ensure the rates are valid numbers
     if (isNaN(ratePerDay) || isNaN(ratePerOT)) {
-        alert("Please enter valid rate values.");
-        return;
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Please enter valid rate values."
+        });
     }
 
     // Calculate special and legal holiday rates
@@ -30,9 +33,17 @@ function calculate() {
     let legalHoliday = parseInt(document.getElementById("legal").value);
 
     // Ensure all inputs are valid numbers
-    if (isNaN(days) || isNaN(overTime) || isNaN(specialHoliday) || isNaN(legalHoliday)) {
-        alert("Please enter valid numbers for all fields.");
-        return;
+    if (
+        isNaN(days) ||
+        isNaN(overTime) ||
+        isNaN(specialHoliday) ||
+        isNaN(legalHoliday)
+    ) {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Please enter valid numbers for all fields."
+        });
     }
 
     // Calculate each pay component
@@ -48,7 +59,12 @@ function calculate() {
     lh = lh.toFixed(2);
 
     // Calculate gross pay and round to two decimal places
-    let grossPay = (parseFloat(daily) + parseFloat(ot) + parseFloat(sp) + parseFloat(lh)).toFixed(2);
+    let grossPay = (
+        parseFloat(daily) +
+        parseFloat(ot) +
+        parseFloat(sp) +
+        parseFloat(lh)
+    ).toFixed(2);
 
     // Create result HTML with rounded values and currency
     let resultHTML = `
@@ -64,5 +80,3 @@ function calculate() {
     document.getElementById("result").style.display = "block"; // Show the result
     document.getElementById("result").innerHTML = resultHTML; // Insert the result HTML
 }
-
-
