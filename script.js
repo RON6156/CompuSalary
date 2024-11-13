@@ -1,108 +1,110 @@
+    // Select2 searchable dropdwon menu
 $(document).ready(function () {
     $("#mySelect").select2({
         placeholder: "Select an option",
         allowClear: true
     });
 });
-// Function to calculate salary
 function calculate() {
+    // Get all the required input fields
+    const dailyRateField = document.getElementById("dailyRate");
+    const overtimeRateField = document.getElementById("overtime");
+    const daysField = document.getElementById("days");
+    const overtimeHoursField = document.getElementById("ot");
+    const specialHolidayField = document.getElementById("special");
+    const legalHolidayField = document.getElementById("legal");
+
     // Get the selected currency value
     let currency = document.getElementById("mySelect").value;
-    
-    // Ensure currency is valid
-    if (isNaN(currency)) {
+
+    // Check if currency is valid
+    if (currency === "" || currency === "Select currency") {
         Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "Please select currency."
+            text: "Please select a currency."
         });
+        return; // Stop the function execution if currency is not selected
     }
 
-    // Get the input values
-    const ratePerDay = parseFloat(document.getElementById("dailyRate").value);
-    const ratePerOT = parseFloat(document.getElementById("overtime").value);
-
-    // Ensure the rates are valid numbers
-    if (isNaN(ratePerDay) || isNaN(ratePerOT)) {
+    // Check if any field is empty
+    if (!dailyRateField.value || !overtimeRateField.value || !daysField.value ||
+        !overtimeHoursField.value || !specialHolidayField.value || !legalHolidayField.value) {
         Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "Please enter valid rate values."
+            text: "Please fill in all fields."
         });
+        return; // Stop the function execution if any field is empty
     }
 
-    // Calculate special and legal holiday rates
+    // Parse input values
+    const ratePerDay = parseFloat(dailyRateField.value);
+    const ratePerOT = parseFloat(overtimeRateField.value);
+    const days = parseInt(daysField.value);
+    const overTime = parseInt(overtimeHoursField.value);
+    const specialHoliday = parseInt(specialHolidayField.value);
+    const legalHoliday = parseInt(legalHolidayField.value);
+
+    // Check if any parsed values are NaN (if parsing failed)
+    if (isNaN(ratePerDay) || isNaN(ratePerOT) || isNaN(days) || 
+        isNaN(overTime) || isNaN(specialHoliday) || isNaN(legalHoliday)) {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Please enter valid numbers in all fields."
+        });
+        return; // Stop the function execution if any field contains invalid numbers
+    }
+
+    // Calculate holiday pay rates
     const specialHolidayRate = ratePerDay * 0.3;
     const legalHolidayRate = ratePerDay;
 
-    // Get the days and overtime inputs
-    let days = parseInt(document.getElementById("days").value);
-    let overTime = parseInt(document.getElementById("ot").value);
-    let specialHoliday = parseInt(document.getElementById("special").value);
-    let legalHoliday = parseInt(document.getElementById("legal").value);
-
-    // Ensure all inputs are valid numbers
-    if (
-        isNaN(days) ||
-        isNaN(overTime) ||
-        isNaN(specialHoliday) ||
-        isNaN(legalHoliday)
-    ) {
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Please enter valid numbers for all fields."
-        });
-    }
-
-    // Calculate each pay component
-    let daily = ratePerDay * days;
-    let ot = ratePerOT * overTime;
-    let sp = specialHolidayRate * specialHoliday;
-    let lh = legalHolidayRate * legalHoliday;
-
-    // Round the results to two decimal places
-    daily = daily.toFixed(2);
-    ot = ot.toFixed(2);
-    sp = sp.toFixed(2);
-    lh = lh.toFixed(2);
+    // Calculate each pay component and round to two decimal places
+    const daily = (ratePerDay * days).toFixed(2);
+    const ot = (ratePerOT * overTime).toFixed(2);
+    const sp = (specialHolidayRate * specialHoliday).toFixed(2);
+    const lh = (legalHolidayRate * legalHoliday).toFixed(2);
 
     // Calculate gross pay and round to two decimal places
-    let grossPay = (
-        parseFloat(daily) +
-        parseFloat(ot) +
-        parseFloat(sp) +
-        parseFloat(lh)
-    ).toFixed(2);
+    const grossPay = (parseFloat(daily) + parseFloat(ot) + parseFloat(sp) + parseFloat(lh)).toFixed(2);
 
     // Create result HTML with rounded values and currency
-    let resultHTML = `
+    const resultHTML = `
         <div class="result-item">Regular Pay: ${currency} ${daily}</div>
         <div class="result-item">Overtime Pay: ${currency} ${ot}</div>
         <div class="result-item">Special Holiday Pay: ${currency} ${sp}</div>
         <div class="result-item">Legal Holiday Pay: ${currency} ${lh}</div>
-        <div class="total">Total Salary: <br />
-        ${currency} ${grossPay}</div>
+        <div class="total">Total Salary: ${currency} ${grossPay}</div>
     `;
-
+    
     // Display success notification
     const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: toast => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-        }
-    });
-    Toast.fire({
-        icon: "success",
-        title: "Calculated successfully!"
-    });
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  }
+});
+Toast.fire({
+  icon: "success",
+  title: "Signed in successfully"
+});
 
-    // Display the result and change the index of the result container to 1
-    document.getElementById("result").style.display = "block"; // Show the result
-    document.getElementById("result").innerHTML = resultHTML; // Insert the result HTML
+    // Display the result
+    document.getElementById("result").style.display = "block";
+    document.getElementById("result").innerHTML = resultHTML;
+
+    // Clear the input fields after calculation
+    dailyRateField.value = "";
+    overtimeRateField.value = "";
+    daysField.value = "";
+    overtimeHoursField.value = "";
+    specialHolidayField.value = "";
+    legalHolidayField.value = "";
 }
