@@ -4,19 +4,21 @@ A simple salary calculator that computes an employee's total salary based on the
 ## Features 
 - **Currency Selection:** Choose from various currencies to display the calculated salary.
 - **Input Fields:**
-       - Rate per day
-  
-       - Overtime rate
-       - Number of days worked 
-       - Number of overtime hours 
-       - Number of special holidays
-       - Number of legal holidays
+       • Rate per day  
+       • Overtime rate
+       • Number of days worked 
+       • Number of overtime hours 
+       • Number of special holidays
+       • Number of legal holidays
        
 - **Salary Calculation:**
-       - Regular Pay *(Rate per day × Number of days worked)*
-       - Overtime Pay *(Overtime hours × Number of overtime hours)*
-       - Special Holiday *(Rate per day × 30%)*
-       - Legal Holiday *(Rate per day)*
+       • Regular Pay *(Rate per day × Number of days worked)*
+  
+       • Overtime Pay *(Overtime hours × Number of overtime hours)*
+  
+       • Special Holiday *(Rate per day × 30%)*
+  
+       • Legal Holiday *(Rate per day)*
       
 - **Result Display:** Displays calculated *regular pay, overtime pay, holiday pay,* and *total salary* in the selected currency.
 
