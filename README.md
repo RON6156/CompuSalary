@@ -4,7 +4,8 @@ A simple salary calculator that computes an employee's total salary based on the
 ## Features 
 - **Currency Selection:** Choose from various currencies to display the calculated salary.
 - **Input Fields:**
-       - Rate per day 
+       - Rate per day
+  
        - Overtime rate
        - Number of days worked 
        - Number of overtime hours 
