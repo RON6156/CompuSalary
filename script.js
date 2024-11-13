@@ -76,6 +76,23 @@ function calculate() {
         ${currency} ${grossPay}</div>
     `;
 
+    // Display success notification
+    const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  }
+});
+Toast.fire({
+  icon: "success",
+  title: "Calculated successfully!"
+});
+
     // Display the result and change the index of the result container to 1
     document.getElementById("result").style.display = "block"; // Show the result
     document.getElementById("result").innerHTML = resultHTML; // Insert the result HTML
