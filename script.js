@@ -1,4 +1,4 @@
-    // Select2 searchable dropdwon menu
+// Select2 searchable dropdwon menu
 $(document).ready(function () {
     $("#mySelect").select2({
         placeholder: "Select an option",
@@ -28,8 +28,14 @@ function calculate() {
     }
 
     // Check if any field is empty
-    if (!dailyRateField.value || !overtimeRateField.value || !daysField.value ||
-        !overtimeHoursField.value || !specialHolidayField.value || !legalHolidayField.value) {
+    if (
+        !dailyRateField.value ||
+        !overtimeRateField.value ||
+        !daysField.value ||
+        !overtimeHoursField.value ||
+        !specialHolidayField.value ||
+        !legalHolidayField.value
+    ) {
         Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -47,8 +53,14 @@ function calculate() {
     const legalHoliday = parseInt(legalHolidayField.value);
 
     // Check if any parsed values are NaN (if parsing failed)
-    if (isNaN(ratePerDay) || isNaN(ratePerOT) || isNaN(days) || 
-        isNaN(overTime) || isNaN(specialHoliday) || isNaN(legalHoliday)) {
+    if (
+        isNaN(ratePerDay) ||
+        isNaN(ratePerOT) ||
+        isNaN(days) ||
+        isNaN(overTime) ||
+        isNaN(specialHoliday) ||
+        isNaN(legalHoliday)
+    ) {
         Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -68,7 +80,12 @@ function calculate() {
     const lh = (legalHolidayRate * legalHoliday).toFixed(2);
 
     // Calculate gross pay and round to two decimal places
-    const grossPay = (parseFloat(daily) + parseFloat(ot) + parseFloat(sp) + parseFloat(lh)).toFixed(2);
+    const grossPay = (
+        parseFloat(daily) +
+        parseFloat(ot) +
+        parseFloat(sp) +
+        parseFloat(lh)
+    ).toFixed(2);
 
     // Create result HTML with rounded values and currency
     const resultHTML = `
@@ -78,23 +95,23 @@ function calculate() {
         <div class="result-item">Legal Holiday Pay: ${currency} ${lh}</div>
         <div class="total">Total Salary: ${currency} ${grossPay}</div>
     `;
-    
+
     // Display success notification
     const Toast = Swal.mixin({
-  toast: true,
-  position: "top-end",
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.onmouseenter = Swal.stopTimer;
-    toast.onmouseleave = Swal.resumeTimer;
-  }
-});
-Toast.fire({
-  icon: "success",
-  title: "Signed in successfully"
-});
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: toast => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
+    Toast.fire({
+        icon: "success",
+        title: "Signed in successfully"
+    });
 
     // Display the result
     document.getElementById("result").style.display = "block";
