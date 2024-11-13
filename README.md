@@ -25,6 +25,7 @@ A simple salary calculator that computes an employee's total salary based on the
 - JavaScript 
 - jQuery
 - Select2
+- SweetAlert2
 
 ## Installation 
 **Link:** [CompuSalary on Netlify](https://compusalary.netlify.app)
