@@ -122,6 +122,9 @@ function calculate() {
                 parseFloat(sp) +
                 parseFloat(lh)
             ).toFixed(2);
+            
+            // Format the grossPay with currency code and commas
+            const formattedGrossPay = `${currency} ${parseFloat(grossPay).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
             // Display success notification
             const Toast = Swal.mixin({
@@ -157,8 +160,12 @@ function calculate() {
                         <div style="display: flex; justify-content: space-between;">
                             <span>Legal Holiday Pay:</span> <span>${lh}</span>
                         </div>
-                        <div style="display: flex; justify-content: space-between; font-size: 24px; font-weight: bold;">
-                            <span>Total Salary:</span> <span>${currency} ${grossPay}</span>
+                        <div style="display: flex; justify-content: left; font-size: 24px; font-weight: bold;">
+                            <span>Total Salary:
+                        </div>
+                    </div>
+                        <div style="display: flex; justify-content: right; font-size: 24px; font-weight: bold;">
+                            <span>${formattedGrossPay}</span>
                         </div>
                     </div>`,
                 showConfirmButton: true,
@@ -184,6 +191,7 @@ function calculate() {
             overtimeHoursField.value = "";
             specialHolidayField.value = "";
             legalHolidayField.value = "";
+  
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             Swal.fire({
                 title: "Cancelled",
