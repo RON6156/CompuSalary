@@ -64,20 +64,6 @@ button:active {
 
 .submit {
   margin: 20px auto;
-
-}
-
-.result {
-    margin-top: 35px;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-}
-
-.result-item {
-    font-size: 18px;
-    margin-bottom: 8px;
 }
 
 .total {
