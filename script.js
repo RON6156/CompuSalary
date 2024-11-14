@@ -1,10 +1,11 @@
-// Select2 searchable dropdwon menu
+// Select2 searchable dropdown menu
 $(document).ready(function () {
     $("#mySelect").select2({
         placeholder: "Select an option",
         allowClear: true
     });
 });
+
 function calculate() {
     // Get all the required input fields
     const dailyRateField = document.getElementById("dailyRate");
@@ -69,59 +70,125 @@ function calculate() {
         return; // Stop the function execution if any field contains invalid numbers
     }
 
-    // Calculate holiday pay rates
-    const specialHolidayRate = ratePerDay * 0.3;
-    const legalHolidayRate = ratePerDay;
+    // Show confirmation message before proceeding with calculations
+    Swal.fire({
+        title: "Confirmation",
+        html: `
+            <div style="text-align: left; font-size: 16px;">
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Daily Rate:</span> <span>${ratePerDay}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Overtime Rate:</span> <span>${ratePerOT}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Number of Days:</span> <span>${days}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Overtime Hours:</span> <span>${overTime}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Special Holidays:</span> <span>${specialHoliday}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Legal Holidays:</span> <span>${legalHoliday}</span>
+                </div>
+            </div>`,
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonText: "Confirm",
+        cancelButtonText: "Cancel",
+        reverseButtons: true,
+        customClass: {
+            confirmButton: "btn btn-success",  // Green button for confirm
+            cancelButton: "btn btn-danger"    // Red button for cancel
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Calculate holiday pay rates
+            const specialHolidayRate = ratePerDay * 0.3;
+            const legalHolidayRate = ratePerDay;
 
-    // Calculate each pay component and round to two decimal places
-    const daily = (ratePerDay * days).toFixed(2);
-    const ot = (ratePerOT * overTime).toFixed(2);
-    const sp = (specialHolidayRate * specialHoliday).toFixed(2);
-    const lh = (legalHolidayRate * legalHoliday).toFixed(2);
+            // Calculate each pay component and round to two decimal places
+            const daily = (ratePerDay * days).toFixed(2);
+            const ot = (ratePerOT * overTime).toFixed(2);
+            const sp = (specialHolidayRate * specialHoliday).toFixed(2);
+            const lh = (legalHolidayRate * legalHoliday).toFixed(2);
 
-    // Calculate gross pay and round to two decimal places
-    const grossPay = (
-        parseFloat(daily) +
-        parseFloat(ot) +
-        parseFloat(sp) +
-        parseFloat(lh)
-    ).toFixed(2);
+            // Calculate gross pay and round to two decimal places
+            const grossPay = (
+                parseFloat(daily) +
+                parseFloat(ot) +
+                parseFloat(sp) +
+                parseFloat(lh)
+            ).toFixed(2);
 
-    // Create result HTML with rounded values and currency
-    const resultHTML = `
-        <div class="result-item">Regular Pay: ${currency} ${daily}</div>
-        <div class="result-item">Overtime Pay: ${currency} ${ot}</div>
-        <div class="result-item">Special Holiday Pay: ${currency} ${sp}</div>
-        <div class="result-item">Legal Holiday Pay: ${currency} ${lh}</div>
-        <div class="total">Total Salary: ${currency} ${grossPay}</div>
-    `;
+            // Display success notification
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: toast => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "success",
+                title: "Calculation completed successfully"
+            });
 
-    // Display success notification
-    const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: toast => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
+            // Display the result
+            Swal.fire({
+                icon: "success",
+                html: `
+                    <div style="text-align: left; font-size: 16px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Regular Pay:</span> <span>${daily}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Overtime Pay:</span> <span>${ot}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Special Holiday Pay:</span> <span>${sp}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Legal Holiday Pay:</span> <span>${lh}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 24px; font-weight: bold;">
+                            <span>Total Salary:</span> <span>${currency} ${grossPay}</span>
+                        </div>
+                    </div>`,
+                showConfirmButton: true,
+                confirmButtonText: "OK",
+                showClass: {
+                    popup: "animate__animated animate__fadeInUp animate__faster"
+                },
+                hideClass: {
+                    popup: "animate__animated animate__fadeOutDown animate__faster"
+                }
+            }).then(() => {
+                // Scroll to the top after confirming results
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            });
+
+            // Clear the input fields after calculation
+            dailyRateField.value = "";
+            overtimeRateField.value = "";
+            daysField.value = "";
+            overtimeHoursField.value = "";
+            specialHolidayField.value = "";
+            legalHolidayField.value = "";
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire({
+                title: "Cancelled",
+                icon: "error"
+            });
         }
     });
-    Toast.fire({
-        icon: "success",
-        title: "Signed in successfully"
-    });
-
-    // Display the result
-    document.getElementById("result").style.display = "block";
-    document.getElementById("result").innerHTML = resultHTML;
-
-    // Clear the input fields after calculation
-    dailyRateField.value = "";
-    overtimeRateField.value = "";
-    daysField.value = "";
-    overtimeHoursField.value = "";
-    specialHolidayField.value = "";
-    legalHolidayField.value = "";
 }
