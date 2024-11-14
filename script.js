@@ -94,7 +94,7 @@ function calculate() {
                     <span>Legal Holidays:</span> <span>${legalHoliday}</span>
                 </div>
             </div>`,
-        icon: "info",
+        icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Confirm",
         cancelButtonText: "Cancel",
