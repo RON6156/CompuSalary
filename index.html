@@ -149,12 +149,12 @@
                 <h3>Rates</h3>
                 <div class="input">
                     <label for="dailyRate">Daily Rate</label> <br />
-                    <input id="dailyRate" type="number" min="0" required />
+                    <input id="dailyRate" type="number" min="0" autocomplete="on" required />
                 </div>
 
                 <div class="input">
                     <label for="overtime">Overtime Rate</label> <br />
-                    <input id="overtime" type="number" min="0" placeholder="Type '0' if you didn't know" required />
+                    <input id="overtime" type="number" min="0" autocomplete="on" placeholder="Type '0' if you didn't know" required />
                 </div>
 
                 <h3>Days Worked</h3>
@@ -181,13 +181,10 @@
                 </div>
 
                 <div class="submit">
-                    <a href="#result"><button type="button" onclick="calculate()">Calculate</button></a>
+                    <button type="button" onclick="calculate()">Calculate</button>
                 </div>
 
             </div>
-        </div>
-        <div class="box">
-            <div class="result" id="result"></div>
         </div>
 
         <script src="script.js"></script>
