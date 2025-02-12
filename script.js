@@ -48,10 +48,10 @@ function calculate() {
     // Parse input values
     const ratePerDay = parseFloat(dailyRateField.value);
     const ratePerOT = parseFloat(overtimeRateField.value);
-    const days = parseInt(daysField.value);
-    const overTime = parseInt(overtimeHoursField.value);
-    const specialHoliday = parseInt(specialHolidayField.value);
-    const legalHoliday = parseInt(legalHolidayField.value);
+    const days = parseFloat(daysField.value);
+    const overTime = parseFloat(overtimeHoursField.value);
+    const specialHoliday = parseFloat(specialHolidayField.value);
+    const legalHoliday = parseFloat(legalHolidayField.value);
 
     // Check if any parsed values are NaN (if parsing failed)
     if (
@@ -100,10 +100,10 @@ function calculate() {
         cancelButtonText: "Cancel",
         reverseButtons: true,
         customClass: {
-            confirmButton: "btn btn-success",  // Green button for confirm
-            cancelButton: "btn btn-danger"    // Red button for cancel
+            confirmButton: "btn btn-success", // Green button for confirm
+            cancelButton: "btn btn-danger" // Red button for cancel
         }
-    }).then((result) => {
+    }).then(result => {
         if (result.isConfirmed) {
             // Calculate holiday pay rates
             const specialHolidayRate = ratePerDay * 0.3;
@@ -122,9 +122,14 @@ function calculate() {
                 parseFloat(sp) +
                 parseFloat(lh)
             ).toFixed(2);
-            
+
             // Format the grossPay with currency code and commas
-            const formattedGrossPay = `${currency} ${parseFloat(grossPay).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            const formattedGrossPay = `${currency} ${parseFloat(
+                grossPay
+            ).toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            })}`;
 
             // Display success notification
             const Toast = Swal.mixin({
@@ -191,7 +196,6 @@ function calculate() {
             overtimeHoursField.value = "";
             specialHolidayField.value = "";
             legalHolidayField.value = "";
-  
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             Swal.fire({
                 title: "Cancelled",
@@ -199,4 +203,4 @@ function calculate() {
             });
         }
     });
-}
+    }
